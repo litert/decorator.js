@@ -113,7 +113,7 @@ export interface IGeneralDecorator {
 
 export interface IGeneralDecoratorProcessorSet {
 
-    ctor?: IClassDecoratorProcessor;
+    class?: IClassDecoratorProcessor;
 
     ctorParameter?: IConstructorParameterDecoratorProcessor;
 

@@ -15,6 +15,9 @@
  */
 
 export * from './Common';
+import { IDecoratorUtility } from './Common';
 import { DecoratorUtility } from './DecoratorUtility';
 
-export default new DecoratorUtility();
+const decoratorUtils: IDecoratorUtility = new DecoratorUtility();
+
+export default decoratorUtils;

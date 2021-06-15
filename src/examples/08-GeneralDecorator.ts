@@ -17,7 +17,7 @@
 import $Decorators from '../lib';
 
 const test = $Decorators.createGeneralDecorator({
-    ctor(c): void {
+    class(c): void {
 
         console.log(`Decorated class ${c.name}`);
     },

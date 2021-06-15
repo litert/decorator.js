@@ -36,11 +36,11 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                     switch (typeof d) {
 
                         case 'undefined': // for class
-                            if (!processors.ctor) {
+                            if (!processors.class) {
 
                                 throw new TypeError('This decorator can not apply with classes.');
                             }
-                            return processors.ctor(c);
+                            return processors.class(c);
                         case 'number': // for class constructor parameter
                             if (!processors.ctorParameter) {
 

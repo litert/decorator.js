@@ -11,8 +11,8 @@ module.exports = {
             'merge'
         ]],
         'scope-enum': [2, 'always', [
-            'decorator',
-            'class',
+            'api',
+            'examples',
             'typings',
             'hook',
             'deps',
