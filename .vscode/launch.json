@@ -1,0 +1,96 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 00 - Class Decorator",
+            "program": "${workspaceFolder}/src/examples/00-ClassDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 01 - Member Method Decorator",
+            "program": "${workspaceFolder}/src/examples/01-MemberMethodDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 02 - Member Property Decorator",
+            "program": "${workspaceFolder}/src/examples/02-MemberPropertyDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 03 - Member Method Parameter Decorator",
+            "program": "${workspaceFolder}/src/examples/03-MemberMethodParameterDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 04 - Static Method Decorator",
+            "program": "${workspaceFolder}/src/examples/04-StaticMethodDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 05 - Static Property Decorator",
+            "program": "${workspaceFolder}/src/examples/05-StaticPropertyDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 06 - Static Method Paramter Decorator",
+            "program": "${workspaceFolder}/src/examples/06-StaticMethodParameterDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        }
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 07 - Class Constructor Paramter Decorator",
+            "program": "${workspaceFolder}/src/examples/07-ConstructorParameterDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        }
+    ]
+}

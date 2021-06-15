@@ -1,0 +1,49 @@
+{
+  "name": "@litert/decorator",
+  "version": "0.1.0",
+  "description": "The utility set of decorators.",
+  "main": "./lib/index.js",
+  "scripts": {
+    "prepublishOnly": "npm run rebuild",
+    "build": "echo Using TypeScript && tsc -v && tsc -p .",
+    "build-watch": "echo Using TypeScript && tsc -v && tsc -w -p .",
+    "rebuild": "npm run clean && npm run lint && npm run build",
+    "test": "mocha",
+    "typecheck": "tsc -p . --noEmit",
+    "clean": "rm -rf lib test examples",
+    "lint": "eslint --ext ts src"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litert/decorator.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/litert/decorator.js/issues"
+  },
+  "homepage": "https://github.com/litert/decorator.js#readme",
+  "keywords": [
+    "litert",
+    "lrt",
+    "decorator"
+  ],
+  "author": "Angus.Fenying <i.am.x.fenying@gmail.com> (https://fenying.net)",
+  "license": "Apache-2.0",
+  "types": "./lib/index.d.ts",
+  "typings": "./lib/index.d.ts",
+  "devDependencies": {
+    "@commitlint/cli": "^12.1.4",
+    "@commitlint/config-conventional": "^12.1.4",
+    "@types/mocha": "^8.2.2",
+    "@types/node": "^15.12.2",
+    "@typescript-eslint/eslint-plugin": "^4.27.0",
+    "@typescript-eslint/parser": "^4.27.0",
+    "eslint": "^7.28.0",
+    "husky": "^6.0.0",
+    "mocha": "^9.0.0",
+    "reflect-metadata": "^0.1.13",
+    "typescript": "^4.3.2"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}

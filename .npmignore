@@ -1,0 +1,7 @@
+/.gitignore
+/tsconfig.json
+/tslint.json
+/.vscode/
+/.git/
+test/
+examples/
