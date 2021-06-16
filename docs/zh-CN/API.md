@@ -130,7 +130,7 @@ function getOwnMethodNames(target: IClassCtor): Array<string | symbol>;
 
 这个方法用于获取指定类中，被装饰过的方法名称列表。（不包括仅父类、子类中被装饰过，而不在当前类中被装饰过的方法）
 
-> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中所有（包括未被显式装饰过的）成员属性和成员方法的名称。
+> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中被 `reflect-metadata` 库装饰过的成员属性和成员方法的名称。
 
 ### getOwnPropertyNames
 
@@ -140,7 +140,7 @@ function getOwnPropertyNames(target: IClassCtor): Array<string | symbol>;
 
 这个方法用于获取指定类中，被装饰过的属性名称列表。（不包括仅父类、子类中被装饰过，而不在当前类中被装饰过的属性）
 
-> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中所有（包括未被显式装饰过的）成员属性和成员方法的名称。
+> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中被 `reflect-metadata` 库装饰过的成员属性和成员方法的名称。
 
 ### getOwnStaticMethodNames
 
@@ -150,7 +150,7 @@ function getOwnStaticMethodNames(target: IClassCtor): Array<string | symbol>;
 
 这个方法用于获取指定类中，被装饰过的静态方法名称列表。（不包括仅父类、子类中被装饰过，而不在当前类中被装饰过的方法）
 
-> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中所有（包括未被显式装饰过的）静态属性和静态方法的名称。
+> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中被 `reflect-metadata` 库装饰过的静态属性和静态方法的名称。
 
 ### getOwnStaticPropertyNames
 
@@ -160,7 +160,7 @@ function getOwnStaticPropertyNames(target: IClassCtor): Array<string | symbol>;
 
 这个方法用于获取指定类中，被装饰过的静态属性名称列表。（不包括仅父类、子类中被装饰过，而不在当前类中被装饰过的属性）
 
-> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中所有（包括未被显式装饰过的）静态属性和静态方法的名称。
+> 该方法配合 `hookNativeReflectMetadata` 方法使用，可以获得类中被 `reflect-metadata` 库装饰过的静态属性和静态方法的名称。
 
 ### getParentClass
 
@@ -186,9 +186,9 @@ function hookNativeReflectMetadata(): void;
 
 这个方法用于 Hook TypeScript 反射标准库 `reflect-metadata`。
 
-> TypeScript 编译器在开启 `emitDecoratorMetadata` 选项后，会给每个（TypeScript 编译生成的）类的所有属性和方法
+> TypeScript 编译器在开启 `emitDecoratorMetadata` 选项后，会给每个（TypeScript 编译生成的）类的所有**被装饰过**属性和方法
 > 生成类型元数据，而这些元数据使用 `reflect-metadata` 库的接口进行存储。因此 `hookNativeReflectMetadata` 通过 hook
-> `reflect-metadata` 库的元数据写入方法，就可以获取到每个类的所有属性和方法。
+> `reflect-metadata` 库的元数据写入方法，就可以获取到每个类中被 `reflect-metadata` 库装饰过的所有属性和方法。
 
 这个方法必须在 `reflect-metadata` 库被引入前使用，因此建议在程序入口处，最先引用本库，并调用该方法进行初始化：
 

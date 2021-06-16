@@ -23,7 +23,10 @@ export class DecoratorUtility implements C.IDecoratorUtility {
     private _memberProperties: Map<any, Array<string | symbol>> = new Map();
     private _memberMethods: Map<any, Array<string | symbol>> = new Map();
 
-    private _hookedNativeReflectMetadata: boolean = false;
+    private _hookNativeReflectMetadata: boolean = false;
+
+    private _bakOfMetadata!: any;
+    private _bakOfDefineMetadata!: any;
 
     public createGeneralDecorator(processors: C.IGeneralDecoratorProcessorSet): C.IGeneralDecorator {
 
@@ -68,6 +71,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                                 throw new TypeError('This decorator can not apply with static methods.');
                             }
+
+                            this._registerStaticMethod(c, k);
                             return processors.staticMethod(c, k, d);
                         case 'number': // for static method parameter
 
@@ -75,6 +80,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                                 throw new TypeError('This decorator can not apply with static method parameters.');
                             }
+
+                            this._registerStaticMethod(c, k);
                             return processors.staticMethodParameter(c, k, d);
                         case 'undefined': // for static property
 
@@ -82,6 +89,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                                 throw new TypeError('This decorator can not apply with static properties.');
                             }
+
+                            this._registerStaticProperty(c, k);
                             return processors.staticProperty(c, k);
                         default:
                             throw new TypeError('Invalid parameters for decorators.');
@@ -105,6 +114,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                             throw new TypeError('This decorator can not apply with member methods.');
                         }
+
+                        this._registerMemberMethod(c, k);
                         return processors.method(c, k, d);
                     case 'number': // for member member parameter
 
@@ -112,6 +123,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                             throw new TypeError('This decorator can not apply with member method parameters.');
                         }
+
+                        this._registerMemberMethod(c, k);
                         return processors.methodParameter(c, k, d);
                     case 'undefined': // for member property
 
@@ -119,6 +132,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                             throw new TypeError('This decorator can not apply with member properties.');
                         }
+
+                        this._registerMemberProperty(c, k);
                         return processors.property(c, k);
                     default:
                         throw new TypeError('Invalid parameters for decorators.');
@@ -348,26 +363,26 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
     private _registerStaticProperty(ctor: C.IClassCtor, name: string | symbol): void {
 
-        const cls = this._memberProperties.get(ctor) ?? [];
+        const cls = this._staticProperties.get(ctor) ?? [];
 
         if (!cls.includes(name)) {
 
             cls.push(name);
         }
 
-        this._memberProperties.set(ctor, cls);
+        this._staticProperties.set(ctor, cls);
     }
 
     private _registerStaticMethod(ctor: C.IClassCtor, name: string | symbol): void {
 
-        const cls = this._memberMethods.get(ctor) ?? [];
+        const cls = this._staticMethods.get(ctor) ?? [];
 
         if (!cls.includes(name)) {
 
             cls.push(name);
         }
 
-        this._memberMethods.set(ctor, cls);
+        this._staticMethods.set(ctor, cls);
     }
 
     public getOwnMethodNames(target: C.IClassCtor): Array<string | symbol> {
@@ -390,9 +405,14 @@ export class DecoratorUtility implements C.IDecoratorUtility {
         return this._staticProperties.get(target) ?? [];
     }
 
-    public hookNativeReflectMetadata(): void {
+    public isHookNativeReflectMetadata(): boolean {
 
-        if (this._hookedNativeReflectMetadata) {
+        return this._hookNativeReflectMetadata;
+    }
+
+    public hookNativeReflectMetadata(enabled: boolean = true): void {
+
+        if (this._hookNativeReflectMetadata === enabled) {
 
             return;
         }
@@ -402,7 +422,17 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         const ref = Reflect as C.IObject;
 
-        const reflectMetadataBak = ref.metadata;
+        if (!enabled) {
+
+            ref.metadata = this._bakOfMetadata;
+            ref.defineMetadata = this._bakOfDefineMetadata;
+
+            this._hookNativeReflectMetadata = false;
+
+            return;
+        }
+
+        this._bakOfMetadata = ref.metadata;
 
         ref.metadata = (metadataKey: any, metadataValue: any): any => {
 
@@ -418,7 +448,7 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                         }
                         else {
 
-                            this._registerMemberMethod(target.constructor, propertyKey);
+                            this._registerMemberMethod(target, propertyKey);
                         }
                     }
                     else {
@@ -429,23 +459,23 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                         }
                         else {
 
-                            this._registerMemberProperty(target.constructor, propertyKey);
+                            this._registerMemberProperty(target, propertyKey);
                         }
                     }
                 }
 
                 if (dtr !== undefined) {
 
-                    reflectMetadataBak(metadataKey, metadataValue)(target, propertyKey!, dtr);
+                    this._bakOfMetadata(metadataKey, metadataValue)(target, propertyKey!, dtr);
                 }
                 else {
 
-                    reflectMetadataBak(metadataKey, metadataValue)(target, propertyKey!);
+                    this._bakOfMetadata(metadataKey, metadataValue)(target, propertyKey!);
                 }
             };
         };
 
-        const reflectDefineMetadataBak = ref.defineMetadata;
+        this._bakOfDefineMetadata = ref.defineMetadata;
 
         ref.defineMetadata = (metadataKey: any, metadataValue: any, target: any, propertyKey?: string | symbol): void => {
 
@@ -459,7 +489,7 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                     }
                     else {
 
-                        this._registerMemberMethod(target.constructor, propertyKey);
+                        this._registerMemberMethod(target, propertyKey);
                     }
                 }
                 else {
@@ -470,16 +500,16 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                     }
                     else {
 
-                        this._registerMemberProperty(target.constructor, propertyKey);
+                        this._registerMemberProperty(target, propertyKey);
                     }
                 }
 
-                return reflectDefineMetadataBak(metadataKey, metadataValue, target, propertyKey);
+                return this._bakOfDefineMetadata(metadataKey, metadataValue, target, propertyKey);
             }
 
-            return reflectDefineMetadataBak(metadataKey, metadataValue, target);
+            return this._bakOfDefineMetadata(metadataKey, metadataValue, target);
         };
 
-        this._hookedNativeReflectMetadata = true;
+        this._hookNativeReflectMetadata = true;
     }
 }

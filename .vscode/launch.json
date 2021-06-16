@@ -80,12 +80,34 @@
             "outFiles": [
                 "${workspaceFolder}/**/*.js"
             ]
-        }
+        },
         {
             "type": "node",
             "request": "launch",
             "name": "[LiteRT/Decorator.js] Example 07 - Class Constructor Paramter Decorator",
             "program": "${workspaceFolder}/src/examples/07-ConstructorParameterDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 08 - General Decorator",
+            "program": "${workspaceFolder}/src/examples/08-GeneralDecorator.ts",
+            "cwd": "${workspaceFolder}",
+            "sourceMaps": true,
+            "outFiles": [
+                "${workspaceFolder}/**/*.js"
+            ]
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "[LiteRT/Decorator.js] Example 09 - Hooks On Reflect Metadata",
+            "program": "${workspaceFolder}/src/examples/09-HookOnReflectMetadata.ts",
             "cwd": "${workspaceFolder}",
             "sourceMaps": true,
             "outFiles": [

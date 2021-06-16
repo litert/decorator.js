@@ -360,6 +360,13 @@ export interface IDecoratorUtility {
      *
      * > Only works when the options `experimentalDecorators` and `emitDecoratorMetadata` are
      * > turned on in **tsconfig.json** while using TypeScript.
+     *
+     * @param enabled   Set to true to enable hooks, or disable when false [default: true]
      */
-    hookNativeReflectMetadata(): void;
+    hookNativeReflectMetadata(enabled?: boolean): void;
+
+    /**
+     * Check if the hook on native `reflect-metadata` module is enabled.
+     */
+    isHookNativeReflectMetadata(): boolean;
 }

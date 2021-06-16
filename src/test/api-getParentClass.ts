@@ -11,73 +11,26 @@ describe('api:getParentClass', function() {
 
     function fn1() {}
 
-    it('class B should return A', function() {
+    function generateTest(inputName: string, outputName: string, input: any, expected: any): void {
 
-        $Assert.strictEqual($Decorators.getParentClass(B), A);
-    });
+        it(`${inputName} should return ${outputName}`, function() {
 
-    it('class A should return null', function() {
+            $Assert.strictEqual($Decorators.getParentClass(input), expected);
+        });
+    }
 
-        $Assert.strictEqual($Decorators.getParentClass(A), null);
-    });
-
-    it('function should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(fn1 as any), null);
-    });
-
-    it('class prototype should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(A.prototype as any), null);
-    });
-
-    it('boolean(true) should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(true as any), null);
-    });
-
-    it('boolean(false) should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(false as any), null);
-    });
-
-    it('null should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(null as any), null);
-    });
-
-    it('undefined should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(undefined as any), null);
-    });
-
-    it('number 0 should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(0 as any), null);
-    });
-
-    it('number NaN should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(NaN as any), null);
-    });
-
-    it('bigint 0n should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(BigInt(0) as any), null);
-    });
-
-    it('symbol should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass(Symbol('0') as any), null);
-    });
-
-    it('empty string should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass('' as any), null);
-    });
-
-    it('string "class {}" should return null', function() {
-
-        $Assert.strictEqual($Decorators.getParentClass('class {}' as any), null);
-    });
+    generateTest('class B', 'A', B, A);
+    generateTest('class A', 'null', A, null);
+    generateTest('function', 'null', fn1, null);
+    generateTest('class prototype', 'null', A.prototype, null);
+    generateTest('boolean(true)', 'null', true, null);
+    generateTest('boolean(false)', 'null', false, null);
+    generateTest('null', 'null', null, null);
+    generateTest('undefined', 'null', undefined, null);
+    generateTest('number 0', 'null', 0, null);
+    generateTest('number NaN', 'null', NaN, null);
+    generateTest('bigint 0n', 'null', BigInt(0), null);
+    generateTest('symbol', 'null', Symbol('0'), null);
+    generateTest('empty string', 'null', '', null);
+    generateTest('string "class {}"', 'null', 'class {}', null);
 });

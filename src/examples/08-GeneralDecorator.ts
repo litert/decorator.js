@@ -79,3 +79,23 @@ class DemoGeneralDecorator {
 }
 
 new DemoGeneralDecorator(233).print(333);
+
+
+const mark = $Decorators.createPropertyDecorator(function() {});
+const gMark = $Decorators.createGeneralDecorator({ property() {}, staticProperty() {} });
+
+class A {
+
+    @mark
+    public a!: string;
+
+    public b!: string;
+
+    @mark
+    public c!: string;
+
+    @gMark
+    public static d: string;
+}
+
+console.log($Decorators.getOwnPropertyNames(A).join(','));
