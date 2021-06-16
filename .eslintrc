@@ -23,6 +23,7 @@
     "rules": {
         "brace-style": "off",
         "@typescript-eslint/brace-style": ["error", "stroustrup", { "allowSingleLine": true }],
+        "max-len": ["error", 100],
         "camelcase": "off",
         "@typescript-eslint/ban-types": ["error", {
             "types": {

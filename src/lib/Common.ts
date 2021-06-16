@@ -31,37 +31,65 @@ export type IClassDecorator = (ctor: IClassCtor) => void;
 /**
  * The decorator signature of class static method decorators.
  */
-export type IStaticMethodDecorator = (ctor: IClassCtor, propKey: string | symbol, dtr: TypedPropertyDescriptor<any>) => TypedPropertyDescriptor<any> | void;
+export type IStaticMethodDecorator = (
+    ctor: IClassCtor,
+    propKey: string | symbol,
+    dtr: TypedPropertyDescriptor<any>
+) => TypedPropertyDescriptor<any> | void;
 
 /**
  * The decorator signature of class static property decorators.
  */
-export type IStaticPropertyDecorator = (ctor: IClassCtor, propKey: string | symbol, dtr?: undefined) => void;
+export type IStaticPropertyDecorator = (
+    ctor: IClassCtor,
+    propKey: string | symbol,
+    dtr?: undefined
+) => void;
 
 /**
  * The decorator signature of class static method parameter decorators.
  */
-export type IStaticMethodParameterDecorator = (ctor: IClassCtor, propKey: string | symbol, index: number) => void;
+export type IStaticMethodParameterDecorator = (
+    ctor: IClassCtor,
+    propKey: string | symbol,
+    index: number
+) => void;
 
 /**
  * The decorator signature of class member method decorators.
  */
-export type IMethodDecorator = <T>(prototype: T, propKey: T extends IClassCtor ? never : string | symbol, dtr: TypedPropertyDescriptor<any>) => TypedPropertyDescriptor<any> | void;
+export type IMethodDecorator = <T>(
+    prototype: T,
+    propKey: T extends IClassCtor ? never : string | symbol,
+    dtr: TypedPropertyDescriptor<any>
+) => TypedPropertyDescriptor<any> | void;
 
 /**
  * The decorator signature of class member method parameter decorators.
  */
-export type IMethodParameterDecorator = (prototype: IObject, propKey: string | symbol, index: number) => void;
+export type IMethodParameterDecorator = (
+    prototype: IObject,
+    propKey: string | symbol,
+    index: number
+) => void;
 
 /**
  * The decorator signature of class member property decorators.
  */
-export type IPropertyDecorator = <T>(prototype: T, propKey: T extends IClassCtor ? never : string | symbol, dtr?: undefined) => void;
+export type IPropertyDecorator = <T>(
+    prototype: T,
+    propKey: T extends IClassCtor ? never : string | symbol,
+    dtr?: undefined
+) => void;
 
 /**
  * The decorator signature of class constructor parameter decorators.
  */
-export type IConstructorParameterDecorator = (ctor: IClassCtor, method: undefined, index: number) => void;
+export type IConstructorParameterDecorator = (
+    ctor: IClassCtor,
+    method: undefined,
+    index: number
+) => void;
 
 /**
  * The processor signature of class decorators.
@@ -71,32 +99,54 @@ export type IClassDecoratorProcessor = (ctor: IClassCtor) => void;
 /**
  * The processor signature of class static method decorators.
  */
-export type IStaticMethodDecoratorProcessor = (ctor: IClassCtor, propKey: string | symbol, dtr: TypedPropertyDescriptor<any>) => TypedPropertyDescriptor<any> | void;
+export type IStaticMethodDecoratorProcessor = (
+    ctor: IClassCtor,
+    propKey: string | symbol,
+    dtr: TypedPropertyDescriptor<any>
+) => TypedPropertyDescriptor<any> | void;
 
 /**
  * The processor signature of class static property decorators.
  */
-export type IStaticPropertyDecoratorProcessor = (ctor: IClassCtor, propKey: string | symbol) => void;
+export type IStaticPropertyDecoratorProcessor = (
+    ctor: IClassCtor,
+    propKey: string | symbol
+) => void;
 
 /**
  * The processor signature of class static method parameter decorators.
  */
-export type IStaticMethodParameterDecoratorProcessor = (ctor: IClassCtor, propKey: string | symbol, index: number) => void;
+export type IStaticMethodParameterDecoratorProcessor = (
+    ctor: IClassCtor,
+    propKey: string | symbol,
+    index: number
+) => void;
 
 /**
  * The processor signature of class member method decorators.
  */
-export type IMethodDecoratorProcessor = (prototype: IPrototype, propKey: string | symbol, dtr: TypedPropertyDescriptor<any>) => TypedPropertyDescriptor<any> | void;
+export type IMethodDecoratorProcessor = (
+    prototype: IPrototype,
+    propKey: string | symbol,
+    dtr: TypedPropertyDescriptor<any>
+) => TypedPropertyDescriptor<any> | void;
 
 /**
  * The processor signature of class member method parameter decorators.
  */
-export type IMethodParameterDecoratorProcessor = (prototype: IPrototype, propKey: string | symbol, index: number) => void;
+export type IMethodParameterDecoratorProcessor = (
+    prototype: IPrototype,
+    propKey: string | symbol,
+    index: number
+) => void;
 
 /**
  * The processor signature of class member property decorators.
  */
-export type IPropertyDecoratorProcessor = (prototype: IPrototype, propKey: string | symbol) => void;
+export type IPropertyDecoratorProcessor = (
+    prototype: IPrototype,
+    propKey: string | symbol
+) => void;
 
 /**
  * The processor signature of class constructor parameter decorators.
@@ -153,20 +203,26 @@ export interface IDecoratorUtility {
     /**
      * Create a constructor parameter decorator with type checking.
      *
-     * > There is no need to call `isInsideConstructorParameterDecorator` method insides the decorator callback.
+     * > There is no need to call `isInsideConstructorParameterDecorator` method insides the
+     * > decorator callback.
      *
      * @param decorator The callback of class constructor parameter decorator.
      */
-    createConstructorParameterDecorator(processor: IConstructorParameterDecoratorProcessor): IConstructorParameterDecorator;
+    createConstructorParameterDecorator(
+        processor: IConstructorParameterDecoratorProcessor
+    ): IConstructorParameterDecorator;
 
     /**
      * Create a class member method parameter decorator with type checking.
      *
-     * > There is no need to call `isInsideMethodParameterDecorator` method insides the decorator callback.
+     * > There is no need to call `isInsideMethodParameterDecorator` method insides the decorator
+     * > callback.
      *
      * @param decorator The callback of class member method parameter decorator.
      */
-    createMethodParameterDecorator(processor: IMethodParameterDecoratorProcessor): IMethodParameterDecorator;
+    createMethodParameterDecorator(
+        processor: IMethodParameterDecoratorProcessor
+    ): IMethodParameterDecorator;
 
     /**
      * Create a class member method decorator with type checking.
@@ -189,16 +245,20 @@ export interface IDecoratorUtility {
     /**
      * Create a class static method parameter decorator with type checking.
      *
-     * > There is no need to call `isInsideStaticMethodParameterDecorator` method insides the decorator callback.
+     * > There is no need to call `isInsideStaticMethodParameterDecorator` method insides the
+     * > decorator callback.
      *
      * @param decorator The callback of class static method parameter decorator.
      */
-    createStaticMethodParameterDecorator(processor: IStaticMethodParameterDecoratorProcessor): IStaticMethodParameterDecorator;
+    createStaticMethodParameterDecorator(
+        processor: IStaticMethodParameterDecoratorProcessor
+    ): IStaticMethodParameterDecorator;
 
     /**
      * Create a class static method decorator with type checking.
      *
-     * > There is no need to call `isInsideStaticMethodDecorator` method insides the decorator callback.
+     * > There is no need to call `isInsideStaticMethodDecorator` method insides the decorator
+     * > callback.
      *
      * @param decorator The callback of class static method decorator.
      */
@@ -207,11 +267,14 @@ export interface IDecoratorUtility {
     /**
      * Create a class static property decorator with type checking.
      *
-     * > There is no need to call `isInsideStaticPropertyDecorator` method insides the decorator callback.
+     * > There is no need to call `isInsideStaticPropertyDecorator` method insides the decorator
+     * > callback.
      *
      * @param decorator The callback of class static property decorator.
      */
-    createStaticPropertyDecorator(processor: IStaticPropertyDecoratorProcessor): IStaticPropertyDecorator;
+    createStaticPropertyDecorator(
+        processor: IStaticPropertyDecoratorProcessor
+    ): IStaticPropertyDecorator;
 
     /**
      * Check if the decorator is used for a class.
@@ -230,7 +293,9 @@ export interface IDecoratorUtility {
      *
      * @param args  The arguments passed to the decorator.
      */
-    isInsideConstructorParameterDecorator(args: any[]): args is Parameters<IConstructorParameterDecorator>;
+    isInsideConstructorParameterDecorator(
+        args: any[]
+    ): args is Parameters<IConstructorParameterDecorator>;
 
     /**
      * Check the arguments of decorator to determined if it's called as a class method parameter
@@ -268,7 +333,9 @@ export interface IDecoratorUtility {
      *
      * @param args  The arguments passed to the decorator.
      */
-    isInsideStaticMethodParameterDecorator(args: any[]): args is Parameters<IStaticMethodParameterDecorator>;
+    isInsideStaticMethodParameterDecorator(
+        args: any[]
+    ): args is Parameters<IStaticMethodParameterDecorator>;
 
     /**
      * Check the arguments of decorator to determined if it's called as a class method decorator.
