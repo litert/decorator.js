@@ -4,10 +4,12 @@
   "description": "The utility set of decorators.",
   "main": "./lib/index.js",
   "scripts": {
-    "prepublishOnly": "npm run rebuild",
+    "prepublishOnly": "npm run rebuild-production",
     "build": "echo Using TypeScript && tsc -v && tsc -p .",
+    "build-production": "echo Using TypeScript && tsc -v && tsc -p tsconfig.production.json",
     "build-watch": "echo Using TypeScript && tsc -v && tsc -w -p .",
     "rebuild": "npm run clean && npm run lint && npm run build",
+    "rebuild-production": "npm run clean && npm run lint && npm run build-production",
     "test": "mocha",
     "typecheck": "tsc -p . --noEmit",
     "clean": "rm -rf lib test examples",
