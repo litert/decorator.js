@@ -31,6 +31,12 @@ npm i @litert/decorator -S
 import $Decorators from '@litert/decorator';
 ```
 
+通过 TypeScript 的 default 引入的 `$Decorators` 是一个 `IDecoratorUtility` 类型的对象，提供各种工具方法。
+
+## API 文档
+
+[点击查看](./API.md)
+
 ## 使用方式
 
 ### 类装饰器
@@ -534,7 +540,3 @@ class Test {
 ```
 
 查看[示例代码](../../src/examples/08-GeneralDecorator.ts)。
-
-## API 文档
-
-[点击查看](./API.md)
