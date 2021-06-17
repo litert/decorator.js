@@ -15,35 +15,32 @@
  */
 
 import $Decorators from '../lib';
-import 'reflect-metadata';
 
-$Decorators.hookNativeReflectMetadata();
+const mark = $Decorators.createAccessorDecorator(function(proto, name, dtr): void {
 
-const mark = $Decorators.createGeneralDecorator({
-    property() {},
-    method() {},
-    class() {}
+    if (dtr.get && dtr.set) {
+        console.log(`Decorated accessor ${proto.constructor.name}::${name as string}.`);
+    }
+    else if (dtr.get) {
+        console.log(`Decorated getter ${proto.constructor.name}::${name as string}.`);
+    }
+    else if (dtr.set) {
+        console.log(`Decorated setter ${proto.constructor.name}::${name as string}.`);
+    }
 });
 
-class B {}
-
-@mark
-class A {
-
-    @Reflect.metadata('name', '_a')
-    private _a!: B;
+class AccessorDecoratorDemo {
 
     @mark
-    public a(v: string): string { return '321'; }
-
-    public b(d: B): B { return this._a; }
+    public get a(): number { return 123; }
 
     @mark
-    public c(): number { return 321; }
+    public set b(v: number) {  }
 
+    @mark
+    public get c(): number { return 123; }
+
+    public set c(v: number) {  }
 }
 
-$Decorators.hookNativeReflectMetadata(false);
-
-console.log($Decorators.getOwnMethodNames(A));
-console.log($Decorators.getOwnPropertyNames(A));
+new AccessorDecoratorDemo();
