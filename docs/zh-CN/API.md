@@ -2,6 +2,18 @@
 
 ## API 篇
 
+### createAccessorDecorator
+
+```ts
+function createAccessorDecorator(processor: IAccessorDecoratorProcessor): IMethodDecorator;
+```
+
+这个方法用于创建一个符合 TypeScript **类成员访问器装饰器**签名规范的装饰器函数，其参数 `processor` 是装饰器的业务处理器回调函数。
+
+该方法会自动对传递给 `processor` 回调的参数进行有效性检查，防止将装饰器用在错误的地方。
+
+参考示例：[10-AccessorDecorator.ts](../../src/examples/10-AccessorDecorator.ts)
+
 ### createClassDecorator
 
 ```ts
@@ -77,6 +89,18 @@ function createPropertyDecorator(processor: IPropertyDecoratorProcessor): IPrope
 该方法会自动对传递给 `processor` 回调的参数进行有效性检查，防止将装饰器用在错误的地方。
 
 参考示例：[02-MemberPropertyDecorator.ts](../../src/examples/02-MemberPropertyDecorator.ts)
+
+### createStaticAccessorDecorator
+
+```ts
+function createStaticAccessorDecorator(processor: IStaticAccessorDecoratorProcessor): IStaticMethodDecorator;
+```
+
+这个方法用于创建一个符合 TypeScript **类静态访问器装饰器**签名规范的装饰器函数，其参数 `processor` 是装饰器的业务处理器回调函数。
+
+该方法会自动对传递给 `processor` 回调的参数进行有效性检查，防止将装饰器用在错误的地方。
+
+参考示例：[11-StaticAccessorDecorator.ts](../../src/examples/11-StaticAccessorDecorator.ts)
 
 ### createStaticMethodDecorator
 
@@ -196,6 +220,46 @@ function hookNativeReflectMetadata(): void;
 import $Decorators from '@litert/decorator';
 $Decorators.hookNativeReflectMetadata();
 ```
+
+### isHookNativeReflectMetadata
+
+```ts
+function isHookNativeReflectMetadata(): boolean;
+```
+
+这个方法用于判断针对 `reflect-metadata` 的钩子是否已经开启。
+
+### isMethod
+
+```ts
+function isMethod(ctor: IClassCtor, name: string | symbol): boolean;
+```
+
+这个方法用于判断其指定类中的一个成员是否为一个方法。
+
+### isAccessor
+
+```ts
+function isAccessor(ctor: IClassCtor, name: string | symbol): boolean;
+```
+
+这个方法用于判断其指定类中的一个成员是否为一个访问器。
+
+### isStaticMethod
+
+```ts
+function isStaticMethod(ctor: IClassCtor, name: string | symbol): boolean;
+```
+
+这个方法用于判断其指定类中的一个静态成员是否为一个方法。
+
+### isStaticAccessor
+
+```ts
+function isStaticAccessor(ctor: IClassCtor, name: string | symbol): boolean;
+```
+
+这个方法用于判断其指定类中的一个静态成员是否为一个访问器。
 
 ### isClassConstructor
 
@@ -343,6 +407,10 @@ function isInsideStaticPropertyDecorator(args: any[]): args is Parameters<IStati
 
 该类型描述 TypeScript 的**类静态属性装饰器**函数的函数签名。
 
+### IAccessorDecoratorProcessor
+
+该类型描述 TypeScript 的**类成员访问器装饰器**处理器函数的函数签名。
+
 ### IClassDecoratorProcessor
 
 该类型描述 TypeScript 的**类装饰器**处理器函数的函数签名。
@@ -362,6 +430,10 @@ function isInsideStaticPropertyDecorator(args: any[]): args is Parameters<IStati
 ### IPropertyDecoratorProcessor
 
 该类型描述 TypeScript 的**类成员属性装饰器**处理器函数的函数签名。
+
+### IStaticAccessorDecoratorProcessor
+
+该类型描述 TypeScript 的**类静态访问器装饰器**处理器函数的函数签名。
 
 ### IStaticMethodDecoratorProcessor
 
