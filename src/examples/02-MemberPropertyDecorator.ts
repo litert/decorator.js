@@ -22,6 +22,19 @@ class DemoMemberPropertyDecorator {
         console.log(`Decorated property ${proto.constructor.name}::${name as string}`);
     })
     public value: number = 321;
+
+    @$Decorators.createPropertyDecorator(function(proto: IPrototype, name: string | symbol) {
+        console.log(`Decorated method-like property ${proto.constructor.name}::${name as string}`);
+    })
+    public methodLike!: () => void;
+
+    @$Decorators.createAccessorDecorator(function(proto: IPrototype, name: string | symbol) {
+        console.log(`Decorated setter ${proto.constructor.name}::${name as string}`);
+    })
+    public set v(a: number) {
+
+        console.log(a);
+    }
 }
 
-new DemoMemberPropertyDecorator();
+new DemoMemberPropertyDecorator().v = 2321;

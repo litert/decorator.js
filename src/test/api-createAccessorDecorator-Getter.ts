@@ -17,39 +17,39 @@
 import * as $Assert from 'assert';
 import $Decorators, { IGeneralDecorator } from '../lib';
 import * as TestKits from './kits';
-describe('api:createStaticMethodDecorator', function() {
+describe('api:createAccessorDecorator-Getter', function() {
 
     it('should invoke the processor callback', function() {
 
         let called = false;
 
-        class Test4createStaticMethodDecorator {
+        class Test4createAccessorDecorator {
 
-            @$Decorators.createStaticMethodDecorator(function() {
+            @$Decorators.createAccessorDecorator(function() {
 
                 called = true;
             })
-            public static value(): number { return 321; }
+            public get value(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecorator();
+        new Test4createAccessorDecorator();
 
         $Assert.strictEqual(called, true);
     });
 
-    it('should get the first parameter as a class constructor', function() {
+    it('should get the first parameter as a class prototype', function() {
 
         let isPrototype: boolean = false;
 
-        class Test4createStaticMethodDecorator {
+        class Test4createAccessorDecorator {
 
-            @$Decorators.createStaticMethodDecorator(function(ctor) {
-                isPrototype = $Decorators.isClassConstructor(ctor) && ctor === Test4createStaticMethodDecorator;
+            @$Decorators.createAccessorDecorator(function(proto) {
+                isPrototype = $Decorators.isClassPrototype(proto) && proto.constructor === Test4createAccessorDecorator;
             })
-            public static value(): number { return 321; }
+            public get value(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecorator();
+        new Test4createAccessorDecorator();
 
         $Assert.strictEqual(isPrototype, true);
     });
@@ -58,15 +58,15 @@ describe('api:createStaticMethodDecorator', function() {
 
         let propName: string = '';
 
-        class Test4createStaticMethodDecorator {
+        class Test4createAccessorDecorator {
 
-            @$Decorators.createStaticMethodDecorator(function(proto, pName) {
+            @$Decorators.createAccessorDecorator(function(proto, pName) {
                 propName = pName as string;
             })
-            public static m1(): number { return 321; }
+            public get m1(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecorator();
+        new Test4createAccessorDecorator();
 
         $Assert.strictEqual(propName, 'm1');
     });
@@ -75,15 +75,15 @@ describe('api:createStaticMethodDecorator', function() {
 
         let isDtrObject: boolean = false;
 
-        class Test4createStaticMethodDecorator {
+        class Test4createAccessorDecorator {
 
-            @$Decorators.createStaticMethodDecorator(function(proto, pName, pDtr) {
+            @$Decorators.createAccessorDecorator(function(proto, pName, pDtr) {
                 isDtrObject = typeof pDtr === 'object';
             })
-            public static m1(): number { return 321; }
+            public get m1(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecorator();
+        new Test4createAccessorDecorator();
 
         $Assert.strictEqual(isDtrObject, true);
     });
@@ -92,43 +92,43 @@ describe('api:createStaticMethodDecorator', function() {
 
         let expectClsName: string = '';
 
-        class Test4createStaticMethodDecoratorName {
+        class Test4createAccessorDecoratorName {
 
-            @$Decorators.createStaticMethodDecorator(function(proto) {
+            @$Decorators.createAccessorDecorator(function(proto) {
 
-                expectClsName = proto.name;
+                expectClsName = proto.constructor.name;
             })
-            public static value(): number { return 321; }
+            public get value(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecoratorName();
-        $Assert.strictEqual(expectClsName, 'Test4createStaticMethodDecoratorName');
+        new Test4createAccessorDecoratorName();
+        $Assert.strictEqual(expectClsName, 'Test4createAccessorDecoratorName');
     });
 
     it('should call all the decorator processor callbacks', function() {
 
         let count = 1;
 
-        class Test4createStaticMethodDecorator {
+        class Test4createAccessorDecorator {
 
-            @$Decorators.createStaticMethodDecorator(function() {
+            @$Decorators.createAccessorDecorator(function() {
 
                 count *= 4;
             })
-            @$Decorators.createStaticMethodDecorator(function() {
+            @$Decorators.createAccessorDecorator(function() {
 
                 count *= 3;
             })
-            public static value(): number { return 321; }
+            public get value(): number { return 321; }
         }
 
-        new Test4createStaticMethodDecorator();
+        new Test4createAccessorDecorator();
         $Assert.strictEqual(count, 12);
     });
 
     describe('should throw TypeError if decorating wrong position', function() {
 
-        const theDecorator = $Decorators.createStaticMethodDecorator(function() {
+        const theDecorator = $Decorators.createAccessorDecorator(function() {
 
             return;
 
@@ -139,12 +139,13 @@ describe('api:createStaticMethodDecorator', function() {
         TestKits.generatePropertyDecoratorFailTest(theDecorator);
         TestKits.generateStaticPropertyDecoratorFailTest(theDecorator);
         TestKits.generateMethodDecoratorFailTest(theDecorator);
+        TestKits.generateStaticMethodDecoratorFailTest(theDecorator);
         TestKits.generateMethodParameterDecoratorFailTest(theDecorator);
-        // TestKits.generateStaticMethodDecoratorFailTest(theDecorator);
         TestKits.generateStaticMethodParameterDecoratorFailTest(theDecorator);
-        TestKits.generateGetterDecoratorFailTest(theDecorator);
+        // TestKits.generateGetterDecoratorFailTest(theDecorator);
         TestKits.generateStaticGetterDecoratorFailTest(theDecorator);
-        TestKits.generateSetterDecoratorFailTest(theDecorator);
+        // TestKits.generateSetterDecoratorFailTest(theDecorator);
         TestKits.generateStaticSetterDecoratorFailTest(theDecorator);
     });
 });
+ 

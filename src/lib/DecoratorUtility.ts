@@ -71,26 +71,43 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                     switch (typeof d) {
                         case 'object': // for static method
 
-                            if (!processors.staticMethod) {
+                            if (d.set || d.get) {
 
-                                throw new TypeError(
-                                    'This decorator can not apply with static methods.'
-                                );
+                                if (!processors.staticAccessor) {
+
+                                    throw new TypeError(
+                                        'This decorator can not apply with static accessors.'
+                                    );
+                                }
+
+                                this._registerStaticProperty(c, k);
+                                return processors.staticAccessor(c, k, d);
+                            }
+                            else {
+
+                                if (!processors.staticMethod) {
+
+                                    throw new TypeError(
+                                        'This decorator can not apply with static methods.'
+                                    );
+                                }
+
+                                this._registerStaticMethod(c, k);
+                                return processors.staticMethod(c, k, d);
                             }
 
-                            this._registerStaticMethod(c, k);
-                            return processors.staticMethod(c, k, d);
                         case 'number': // for static method parameter
 
-                            if (!processors.staticMethodParameter) {
+                            if (processors.staticMethodParameter) {
 
-                                throw new TypeError(
-                                    'This decorator can not apply with static method parameters.'
-                                );
+                                this._registerStaticMethod(c, k);
+                                return processors.staticMethodParameter(c, k, d);
                             }
 
-                            this._registerStaticMethod(c, k);
-                            return processors.staticMethodParameter(c, k, d);
+                            throw new TypeError(
+                                'This decorator can not apply with static method parameters.'
+                            );
+
                         case 'undefined': // for static property
 
                             if (!processors.staticProperty) {
@@ -120,15 +137,31 @@ export class DecoratorUtility implements C.IDecoratorUtility {
                 switch (typeof d) {
                     case 'object': // for member method
 
-                        if (!processors.method) {
+                        if (d.set || d.get) {
 
-                            throw new TypeError(
-                                'This decorator can not apply with member methods.'
-                            );
+                            if (!processors.accessor) {
+
+                                throw new TypeError(
+                                    'This decorator can not apply with member accessors.'
+                                );
+                            }
+
+                            this._registerMemberProperty(c, k);
+                            return processors.accessor(c, k, d);
+                        }
+                        else {
+
+                            if (!processors.method) {
+
+                                throw new TypeError(
+                                    'This decorator can not apply with member methods.'
+                                );
+                            }
+
+                            this._registerMemberMethod(c, k);
+                            return processors.method(c, k, d);
                         }
 
-                        this._registerMemberMethod(c, k);
-                        return processors.method(c, k, d);
                     case 'number': // for member member parameter
 
                         if (!processors.methodParameter) {
@@ -140,6 +173,7 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
                         this._registerMemberMethod(c, k);
                         return processors.methodParameter(c, k, d);
+
                     case 'undefined': // for member property
 
                         if (!processors.property) {
@@ -193,14 +227,24 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         return this.isClassPrototype(args[0])
             && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
-            && typeof args[2] === 'number';
+            && typeof args[2] === 'number'
+            && this.isMethod(args[0].constructor, args[1]);
     }
 
     public isInsideMethodDecorator(args: any[]): args is Parameters<C.IMethodDecorator> {
 
         return this.isClassPrototype(args[0])
             && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
-            && typeof args[2] === 'object';
+            && typeof args[2] === 'object'
+            && typeof args[2].value === 'function';
+    }
+
+    public isInsideAccessorDecorator(args: any[]): args is Parameters<C.IMethodDecorator> {
+
+        return this.isClassPrototype(args[0])
+            && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
+            && typeof args[2] === 'object'
+            && (args[2].set !== undefined || args[2].get !== undefined);
     }
 
     public isInsidePropertyDecorator(args: any[]): args is Parameters<C.IPropertyDecorator> {
@@ -216,7 +260,8 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         return this.isClassConstructor(args[0])
             && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
-            && typeof args[2] === 'number';
+            && typeof args[2] === 'number'
+            && this.isStaticMethod(args[0], args[1]);
     }
 
     public isInsideStaticMethodDecorator(
@@ -225,7 +270,18 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         return this.isClassConstructor(args[0])
             && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
-            && typeof args[2] === 'object';
+            && typeof args[2] === 'object'
+            && typeof args[2].value === 'function';
+    }
+
+    public isInsideStaticAccessorDecorator(
+        args: any[]
+    ): args is Parameters<C.IStaticMethodDecorator> {
+
+        return this.isClassConstructor(args[0])
+            && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
+            && typeof args[2] === 'object'
+            && (args[2].set !== undefined || args[2].get !== undefined);
     }
 
     public isInsideStaticPropertyDecorator(
@@ -299,6 +355,21 @@ export class DecoratorUtility implements C.IDecoratorUtility {
         };
     }
 
+    public createAccessorDecorator(decorator: C.IAccessorDecoratorProcessor): C.IMethodDecorator {
+
+        return (proto, accessor, descriptor) => {
+
+            if (!this.isInsideAccessorDecorator([proto, accessor, descriptor])) {
+
+                throw new TypeError('Invalid parameters for class accessor decorator.');
+            }
+
+            this._registerMemberProperty(proto as any as C.IPrototype, accessor);
+
+            return decorator(proto as any as C.IPrototype, accessor, descriptor);
+        };
+    }
+
     public createPropertyDecorator(decorator: C.IPropertyDecoratorProcessor): C.IPropertyDecorator {
 
         return (proto, name, descriptor) => {
@@ -347,6 +418,23 @@ export class DecoratorUtility implements C.IDecoratorUtility {
             this._registerStaticMethod(ctor, method);
 
             return decorator(ctor, method, descriptor);
+        };
+    }
+
+    public createStaticAccessorDecorator(
+        decorator: C.IStaticAccessorDecoratorProcessor
+    ): C.IStaticMethodDecorator {
+
+        return (ctor, accessor, descriptor) => {
+
+            if (!this.isInsideStaticAccessorDecorator([ctor, accessor, descriptor])) {
+
+                throw new TypeError('Invalid parameters for class static accessor decorator.');
+            }
+
+            this._registerStaticProperty(ctor, accessor);
+
+            return decorator(ctor, accessor, descriptor);
         };
     }
 
@@ -438,6 +526,34 @@ export class DecoratorUtility implements C.IDecoratorUtility {
         }
 
         this._staticMethods.set(ctor, cls);
+    }
+
+    public isAccessor(ctor: C.IClassCtor, name: symbol | string): boolean {
+
+        const dtr = Object.getOwnPropertyDescriptor(ctor.prototype, name);
+
+        return dtr?.get !== undefined || dtr?.set !== undefined;
+    }
+
+    public isStaticAccessor(ctor: C.IClassCtor, name: symbol | string): boolean {
+
+        const dtr = Object.getOwnPropertyDescriptor(ctor, name);
+
+        return dtr?.get !== undefined || dtr?.set !== undefined;
+    }
+
+    public isMethod(ctor: C.IClassCtor, name: symbol | string): boolean {
+
+        const dtr = Object.getOwnPropertyDescriptor(ctor.prototype, name);
+
+        return typeof dtr?.value === 'function';
+    }
+
+    public isStaticMethod(ctor: C.IClassCtor, name: symbol | string): boolean {
+
+        const dtr = Object.getOwnPropertyDescriptor(ctor, name);
+
+        return typeof dtr?.value === 'function';
     }
 
     public getOwnMethodNames(target: C.IClassCtor): Array<string | symbol> {

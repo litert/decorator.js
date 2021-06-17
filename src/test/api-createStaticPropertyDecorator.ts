@@ -16,6 +16,7 @@
 
 import * as $Assert from 'assert';
 import $Decorators, { IGeneralDecorator } from '../lib';
+import * as TestKits from './kits';
 describe('api:createStaticPropertyDecorator', function() {
 
     it('should invoke the processor callback', function() {
@@ -110,168 +111,23 @@ describe('api:createStaticPropertyDecorator', function() {
 
     describe('should throw TypeError if decorating wrong position', function() {
 
-        const wrongTypedDecorator = $Decorators.createStaticPropertyDecorator(function() {
+        const theDecorator = $Decorators.createStaticPropertyDecorator(function() {
 
             return;
 
         }) as IGeneralDecorator;
 
-        it('constructor parameter', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    public value: number;
-
-                    public constructor(@wrongTypedDecorator v: number) { this.value = v; }
-                }
-                new Test4createStaticPropertyDecorator(321);
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('class', function() {
-
-            try {
-
-                @wrongTypedDecorator
-                class Test4createStaticPropertyDecorator {}
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('property', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    @wrongTypedDecorator
-                    public value: number = 123;
-                }
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('member method', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    @wrongTypedDecorator
-                    public value(): number { return 321; }
-                }
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('static method', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    @wrongTypedDecorator
-                    public static value(): number { return 321; }
-                }
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('member method parameter', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    public value(@wrongTypedDecorator v: number): number { return v; }
-                }
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
-        it('static method parameter', function() {
-
-            try {
-
-                class Test4createStaticPropertyDecorator {
-
-                    public static value(@wrongTypedDecorator v: number): number { return v; }
-                }
-                new Test4createStaticPropertyDecorator();
-            }
-            catch (e: unknown) {
-
-                if (e instanceof TypeError) {
-
-                    $Assert.ok(true);
-                    return;
-                }
-            }
-
-            $Assert.fail();
-        });
-
+        TestKits.generateClassDecoratorFailTest(theDecorator);
+        TestKits.generateConstructorParameterDecoratorFailTest(theDecorator);
+        TestKits.generatePropertyDecoratorFailTest(theDecorator);
+        // TestKits.generateStaticPropertyDecoratorFailTest(theDecorator);
+        TestKits.generateMethodDecoratorFailTest(theDecorator);
+        TestKits.generateMethodParameterDecoratorFailTest(theDecorator);
+        TestKits.generateStaticMethodDecoratorFailTest(theDecorator);
+        TestKits.generateStaticMethodParameterDecoratorFailTest(theDecorator);
+        TestKits.generateGetterDecoratorFailTest(theDecorator);
+        TestKits.generateStaticGetterDecoratorFailTest(theDecorator);
+        TestKits.generateSetterDecoratorFailTest(theDecorator);
+        TestKits.generateStaticSetterDecoratorFailTest(theDecorator);
     });
 });

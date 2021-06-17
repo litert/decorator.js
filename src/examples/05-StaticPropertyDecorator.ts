@@ -27,6 +27,14 @@ class DemoStaticPropertyDecorator {
         console.log(`Decorated static property ${ctor.name}::${name as string}`);
     })
     public static staticValue: number = 123;
+
+    @$Decorators.createStaticAccessorDecorator(function(proto: IClassCtor, name: string | symbol) {
+        console.log(`Decorated static setter ${proto.constructor.name}::${name as string}`);
+    })
+    public static set v(a: number) {
+
+        console.log(a);
+    }
 }
 
 console.log(`Member value: ${new DemoStaticPropertyDecorator().value}`);

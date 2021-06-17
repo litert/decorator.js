@@ -186,6 +186,118 @@ function testStaticMethodDecorator(decorator: IGeneralDecorator, expected: 'ok' 
     });
 }
 
+function testGetterDecorator(decorator: IGeneralDecorator, expected: 'ok' | 'error'): void {
+
+    it(`[getter]                should ${expected === 'ok' ? `be appliable` : `throw TypeError`}`, function() {
+
+        try {
+
+            class Test {
+
+                @decorator
+                public get val(): number { return 123; }
+            }
+    
+            new Test();
+            $Assert.strictEqual(expected, 'ok');
+            return;
+        }
+        catch (e) {
+
+            if (e instanceof TypeError) {
+
+                $Assert.strictEqual(expected, 'error');
+                return;
+            }
+        }
+        $Assert.strictEqual(expected, 'unexpected ending');
+    });
+}
+
+function testStaticGetterDecorator(decorator: IGeneralDecorator, expected: 'ok' | 'error'): void {
+
+    it(`[static-getter]         should ${expected === 'ok' ? `be appliable` : `throw TypeError`}`, function() {
+
+        try {
+
+            class Test {
+
+                @decorator
+                public static get val(): number { return 123; }
+            }
+    
+            new Test();
+            $Assert.strictEqual(expected, 'ok');
+            return;
+        }
+        catch (e) {
+
+            if (e instanceof TypeError) {
+
+                $Assert.strictEqual(expected, 'error');
+                return;
+            }
+        }
+        $Assert.strictEqual(expected, 'unexpected ending');
+    });
+}
+
+function testSetterDecorator(decorator: IGeneralDecorator, expected: 'ok' | 'error'): void {
+
+    it(`[setter]                should ${expected === 'ok' ? `be appliable` : `throw TypeError`}`, function() {
+
+        try {
+
+            class Test {
+
+                @decorator
+                public set val(v: number) {  }
+            }
+    
+            new Test();
+            $Assert.strictEqual(expected, 'ok');
+            return;
+        }
+        catch (e) {
+
+            if (e instanceof TypeError) {
+
+                $Assert.strictEqual(expected, 'error');
+                return;
+            }
+        }
+        $Assert.strictEqual(expected, 'unexpected ending');
+    });
+}
+
+function testStaticSetterDecorator(decorator: IGeneralDecorator, expected: 'ok' | 'error'): void {
+
+    it(`[static-setter]         should ${expected === 'ok' ? `be appliable` : `throw TypeError`}`, function() {
+
+        try {
+
+            class Test {
+
+                @decorator
+                public static set val(v: number) {}
+            }
+    
+            new Test();
+            $Assert.strictEqual(expected, 'ok');
+            return;
+        }
+        catch (e) {
+
+            if (e instanceof TypeError) {
+
+                $Assert.strictEqual(expected, 'error');
+                return;
+            }
+        }
+        $Assert.strictEqual(expected, 'unexpected ending');
+    });
+}
+
 function testMethodParameterDecorator(decorator: IGeneralDecorator, expected: 'ok' | 'error'): void {
 
     it(`[method-param]          should ${expected === 'ok' ? `be appliable` : `throw TypeError`}`, function() {
@@ -254,6 +366,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For class-only general decorator', function() {
@@ -270,6 +386,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For ctor-param-only general decorator', function() {
@@ -286,6 +406,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For prop-only general decorator', function() {
@@ -302,6 +426,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For static-prop-only general decorator', function() {
@@ -318,6 +446,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'ok');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For method-only general decorator', function() {
@@ -334,6 +466,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For static-method-only general decorator', function() {
@@ -350,6 +486,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'ok');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For method-param-only general decorator', function() {
@@ -366,6 +506,10 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
     });
 
     describe('For static-method-param-only general decorator', function() {
@@ -382,6 +526,50 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'error');
         testStaticMethodDecorator(decorator, 'error');
         testStaticMethodParameterDecorator(decorator, 'ok');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
+    });
+
+    describe('For accessor-only general decorator', function() {
+
+        const decorator = $Decorators.createGeneralDecorator({
+            'accessor': function() {}
+        });
+
+        testClassDecorator(decorator, 'error');
+        testConstructorParameterDecorator(decorator, 'error');
+        testPropertyDecorator(decorator, 'error');
+        testMethodDecorator(decorator, 'error');
+        testMethodParameterDecorator(decorator, 'error');
+        testStaticPropertyDecorator(decorator, 'error');
+        testStaticMethodDecorator(decorator, 'error');
+        testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'ok');
+        testSetterDecorator(decorator, 'ok');
+        testStaticGetterDecorator(decorator, 'error');
+        testStaticSetterDecorator(decorator, 'error');
+    });
+
+    describe('For static-accessor-only general decorator', function() {
+
+        const decorator = $Decorators.createGeneralDecorator({
+            'staticAccessor': function() {}
+        });
+
+        testClassDecorator(decorator, 'error');
+        testConstructorParameterDecorator(decorator, 'error');
+        testPropertyDecorator(decorator, 'error');
+        testMethodDecorator(decorator, 'error');
+        testMethodParameterDecorator(decorator, 'error');
+        testStaticPropertyDecorator(decorator, 'error');
+        testStaticMethodDecorator(decorator, 'error');
+        testStaticMethodParameterDecorator(decorator, 'error');
+        testGetterDecorator(decorator, 'error');
+        testSetterDecorator(decorator, 'error');
+        testStaticGetterDecorator(decorator, 'ok');
+        testStaticSetterDecorator(decorator, 'ok');
     });
 
     describe('For all-allowed general decorator', function() {
@@ -395,6 +583,8 @@ describe('api:createGeneralDecorator', function() {
             'staticProperty': function() {},
             'methodParameter': function() {},
             'staticMethodParameter': function() {},
+            'accessor': function() {},
+            'staticAccessor': function() {},
         });
 
         testClassDecorator(decorator, 'ok');
@@ -405,5 +595,9 @@ describe('api:createGeneralDecorator', function() {
         testStaticPropertyDecorator(decorator, 'ok');
         testStaticMethodDecorator(decorator, 'ok');
         testStaticMethodParameterDecorator(decorator, 'ok');
+        testGetterDecorator(decorator, 'ok');
+        testSetterDecorator(decorator, 'ok');
+        testStaticGetterDecorator(decorator, 'ok');
+        testStaticSetterDecorator(decorator, 'ok');
     });
 });
