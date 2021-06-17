@@ -227,8 +227,7 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         return this.isClassPrototype(args[0])
             && (typeof args[1] === 'symbol' || typeof args[1] === 'string')
-            && typeof args[2] === 'number'
-            && this.isMethod(args[0].constructor, args[1]);
+            && typeof args[2] === 'number';
     }
 
     public isInsideMethodDecorator(args: any[]): args is Parameters<C.IMethodDecorator> {
