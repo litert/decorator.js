@@ -26,7 +26,7 @@ export interface IPrototype<T extends IClassCtor = IClassCtor> extends Record<st
 /**
  * The decorator signature of class decorators.
  */
-export type IClassDecorator = <T extends IClassCtor>(ctor: IClassCtor) => T | void;
+export type IClassDecorator = <T extends IClassCtor>(ctor: T) => T | void;
 
 /**
  * The decorator signature of class static method decorators.

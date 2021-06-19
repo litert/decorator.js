@@ -34,6 +34,27 @@ describe('api:createClassDecorator', function() {
         $Assert.strictEqual(called, true);
     });
 
+    it('should compile ok', function() {
+        class A {
+
+            @$Decorators.createMethodDecorator(() => { return; })
+            public add(a: number, b: number): number {
+        
+                return a + b;
+            }
+        
+            @$Decorators.createStaticMethodDecorator(() => { return; })
+            public static multiple(a: number, b: number): number {
+        
+                return a * b;
+            }
+        }
+
+        new A();
+
+        $Assert.ok(true);
+    });
+
     it('should get the first parameter as a class constructor', function() {
 
         let expectCtor!: IClassCtor;
