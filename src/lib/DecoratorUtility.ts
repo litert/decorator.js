@@ -687,4 +687,36 @@ export class DecoratorUtility implements C.IDecoratorUtility {
 
         this._hookNativeReflectMetadata = true;
     }
+
+    public composite(decorators: any[]): any {
+
+        return function(a: any, b: any, c: any): any {
+
+            for (const d of (decorators as Array<(...args: any[]) => any>)) {
+
+                if (typeof c === 'object') {
+
+                    c = d(a, b, c) ?? c;
+                }
+                else if (b === undefined && c === undefined) {
+
+                    a = d(a, b, c) ?? a;
+                }
+                else {
+
+                    d(a, b, c);
+                }
+            }
+
+            if (typeof c === 'object') {
+
+                return c;
+            }
+            else if (b === undefined && c === undefined) {
+
+                return a;
+            }
+
+        } as any;
+    }
 }

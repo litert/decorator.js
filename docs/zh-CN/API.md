@@ -2,6 +2,22 @@
 
 ## API 篇
 
+### composite
+
+```ts
+function composite<
+    T extends IGeneralDecorator | IClassDecorator | IMethodParameterDecorator |
+              IMethodDecorator | IConstructorParameterDecorator | IStaticMethodDecorator |
+              IStaticMethodParameterDecorator | IPropertyDecorator | IStaticPropertyDecorator
+>(decorators: T[]): T;
+```
+
+这个方法用于将多个同类装饰器合成一个装饰器。
+
+> 多个装饰器，按数组排序顺序执行。
+
+参考示例：[00-ClassDecorator.ts](../../src/examples/00-ClassDecorator.ts)、[01-MemberMethodDecorator.ts](../../src/examples/01-MemberMethodDecorator.ts)。
+
 ### createAccessorDecorator
 
 ```ts

@@ -16,9 +16,34 @@
 
 import $Decorators from '../lib';
 
-@$Decorators.createClassDecorator((ctor) => console.log(`Decorated class ${ctor.name}`))
+
+@$Decorators.composite([
+    $Decorators.createClassDecorator((ctor) => console.log(`3. Class name before secord decorated: ${ctor.name}`)),
+    $Decorators.createClassDecorator((ctor) => (class Test2 extends ctor {
+
+        public name: string = 'Mick';
+
+        public printName(): void {
+
+            console.log(this.name);
+        }
+    })),
+    $Decorators.createClassDecorator((ctor) => console.log(`4. Class name after secord decorated: ${ctor.name}`)),
+    $Decorators.createClassDecorator((ctor) => console.log(Object.getOwnPropertyNames(ctor.prototype))),
+])
+@$Decorators.createClassDecorator((ctor) => console.log(`2. Class name after first decorated: ${ctor.name}`))
+@$Decorators.createClassDecorator((ctor) => (class Test1 extends ctor {
+
+    public age: number = 312;
+
+    public printAge(): void {
+
+        console.log(this.age);
+    }
+}))
+@$Decorators.createClassDecorator((ctor) => console.log(`1. Class name before decorated: ${ctor.name}`))
 class DemoClassDecorator {
 
 }
 
-new DemoClassDecorator();
+console.log(`Final class: ${DemoClassDecorator.name}`);

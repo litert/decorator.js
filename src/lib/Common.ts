@@ -175,8 +175,8 @@ export type IConstructorParameterDecoratorProcessor = (ctor: IClassCtor, index: 
  * Signature of any decorator.
  */
 export interface IGeneralDecorator {
-    (target: IClassCtor): void;
-    (target: IObject, propertyKey: string | symbol, index?: any): void;
+    (target: IClassCtor): any;
+    (target: IObject, propertyKey: string | symbol, index?: any): any;
 }
 
 export interface IGeneralDecoratorProcessorSet {
@@ -530,4 +530,17 @@ export interface IDecoratorUtility {
      * @param name  The name of static member in class.
      */
     isStaticAccessor(ctor: IClassCtor, name: string | symbol): boolean;
+
+    /**
+     * Composite multiple same-type decorator into a one.
+     *
+     * > The decorators will be applied in order of the decorator array.
+     *
+     * @param decorators The decorators list.
+     */
+    composite<
+        T extends IGeneralDecorator | IClassDecorator | IMethodParameterDecorator |
+        IMethodDecorator | IConstructorParameterDecorator | IStaticMethodDecorator |
+        IStaticMethodParameterDecorator | IPropertyDecorator | IStaticPropertyDecorator
+    >(decorators: T[]): T;
 }
