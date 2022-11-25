@@ -1,5 +1,5 @@
 /**
- * Copyright 2021 Angus.Fenying <fenying@litert.org>
+ * Copyright 2022 Angus.Fenying <fenying@litert.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,6 +14,9 @@
  * limitations under the License.
  */
 
+// eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+type IMaybeVoid<T> = T | void;
+
 export type IObject = Record<string, any>;
 
 export type IClassCtor<T = any> = new (...args: any[]) => T;
@@ -26,7 +29,7 @@ export interface IPrototype<T extends IClassCtor = IClassCtor> extends Record<st
 /**
  * The decorator signature of class decorators.
  */
-export type IClassDecorator = <T extends IClassCtor>(ctor: T) => T | void;
+export type IClassDecorator = <T extends IClassCtor>(ctor: T) => IMaybeVoid<T>;
 
 /**
  * The decorator signature of class static method decorators.
@@ -35,7 +38,7 @@ export type IStaticMethodDecorator = (
     ctor: IClassCtor,
     propKey: string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The decorator signature of class static property decorators.
@@ -62,7 +65,7 @@ export type IMethodDecorator = <T>(
     prototype: T,
     propKey: T extends IClassCtor ? never : string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The decorator signature of class member method parameter decorators.
@@ -111,7 +114,7 @@ export type IStaticMethodDecoratorProcessor = (
     ctor: IClassCtor,
     propKey: string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The processor signature of class static method parameter decorators.
@@ -129,7 +132,7 @@ export type IStaticAccessorDecoratorProcessor = (
     ctor: IClassCtor,
     propKey: string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The processor signature of class member method decorators.
@@ -138,7 +141,7 @@ export type IMethodDecoratorProcessor = (
     prototype: IPrototype,
     propKey: string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The processor signature of class member method parameter decorators.
@@ -156,7 +159,7 @@ export type IAccessorDecoratorProcessor = (
     prototype: IPrototype,
     propKey: string | symbol,
     dtr: TypedPropertyDescriptor<any>
-) => TypedPropertyDescriptor<any> | void;
+) => IMaybeVoid<TypedPropertyDescriptor<any>>;
 
 /**
  * The processor signature of class member property decorators.

@@ -1,5 +1,6 @@
+/* eslint-disable @typescript-eslint/no-confusing-void-expression */
 /**
- * Copyright 2021 Angus.Fenying <fenying@litert.org>
+ * Copyright 2022 Angus.Fenying <fenying@litert.org>
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -18,14 +19,18 @@ import * as C from './Common';
 
 export class DecoratorUtility implements C.IDecoratorUtility {
 
-    private _staticProperties: Map<any, Array<string | symbol>> = new Map();
-    private _staticMethods: Map<any, Array<string | symbol>> = new Map();
-    private _memberProperties: Map<any, Array<string | symbol>> = new Map();
-    private _memberMethods: Map<any, Array<string | symbol>> = new Map();
+    private readonly _staticProperties: Map<any, Array<string | symbol>> = new Map();
+
+    private readonly _staticMethods: Map<any, Array<string | symbol>> = new Map();
+
+    private readonly _memberProperties: Map<any, Array<string | symbol>> = new Map();
+
+    private readonly _memberMethods: Map<any, Array<string | symbol>> = new Map();
 
     private _hookNativeReflectMetadata: boolean = false;
 
     private _bakOfMetadata!: any;
+
     private _bakOfDefineMetadata!: any;
 
     public createGeneralDecorator(

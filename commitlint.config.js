@@ -5,10 +5,8 @@ module.exports = {
         'type-enum': [2, 'always', [
             'feat',
             'fix',
-            'add',
+            'build',
             'test',
-            'config',
-            'merge'
         ]],
         'scope-enum': [2, 'always', [
             'api',
