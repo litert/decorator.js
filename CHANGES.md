@@ -10,6 +10,7 @@
 - feat: added stage 3 decorators support by `@litert/decorator` or `@litert/decorator/modern`.
 - feat: added stage 2 decorators support by `@litert/decorator/legacy`.
 - feat: added compatible layer for both stage 2 and stage 3 decorators by `@litert/decorator/compatible`.
+- test: added full coverage test cases for the project.
 
 ## v0.2.2
 
