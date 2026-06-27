@@ -19,6 +19,25 @@ A TypeScript decorator utility library that supports both Stage 3 (standard) and
 - **General decorators** — build a single decorator that auto-adapts to the element kind (class, method, property, accessor, etc.) at runtime.
 - **Metadata** — modern decorators get `Symbol.metadata` polyfill and a `getMetadataContainer` helper. Legacy decorators use `reflect-metadata` with full `Reflect.defineMetadata` / `Reflect.getMetadata` support.
 
+Here's a quick compatibility table for the three entrypoints:
+
+| Type | Modern | Legacy | Compatible |
+| --- | --- | --- | --- |
+| Class | ✅ | ✅ | ✅ |
+| Method | ✅ | ✅ | ✅ |
+| Accessor | ✅ | ✅ | ✅ |
+| Getter | ✅ | ✅ | ✅ |
+| Setter | ✅ | ✅ | ✅ |
+| Property | ✅ | ✅ | ✅ |
+| Static Method | ✅ | ✅ | ✅ |
+| Static Accessor | ✅ | ✅ | ✅ |
+| Static Getter | ✅ | ✅ | ✅ |
+| Static Setter | ✅ | ✅ | ✅ |
+| Static Property | ✅ | ✅ | ✅ |
+| Method Parameter | ❌ | ✅ | ❌ |
+| Static Method Parameter | ❌ | ✅ | ❌ |
+| Constructor Parameter | ❌ | ✅ | ❌ |
+
 ## Installation
 
 ```sh
