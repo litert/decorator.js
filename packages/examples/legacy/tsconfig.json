@@ -1,0 +1,13 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "app",
+    "types": ["node", "reflect-metadata"],
+  },
+  "references": [
+    { "path": "../../library" },
+    { "path": "../compatible" },
+  ]
+}

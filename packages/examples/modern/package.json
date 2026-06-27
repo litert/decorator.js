@@ -1,0 +1,22 @@
+{
+  "name": "@litert/decorator-example-modern",
+  "version": "-",
+  "scripts": {
+    "ottoia:clean": "rm -rf app tsconfig.tsbuildinfo",
+    "prepublishOnly": "echo \"Please use ottoia publishing this package!\"; exit 1;"
+  },
+  "license": "Apache-2.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@litert/decorator": "-",
+    "@litert/decorator-example-compatible": "-"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "ottoia:alias": "example-modern",
+  "access": "public",
+  "engines": {
+    "node": ">=22.0.0"
+  }
+}

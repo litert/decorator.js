@@ -1,0 +1,15 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    // "types": ["@litert/decorator"],
+    "rootDir": "src",
+    "outDir": "app",
+    "experimentalDecorators": false,
+    "emitDecoratorMetadata": false
+  },
+  "references": [
+    { "path": "../../library" },
+    { "path": "../compatible" },
+  ]
+}

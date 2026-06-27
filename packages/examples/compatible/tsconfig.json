@@ -1,0 +1,12 @@
+{
+  "extends": "../../../tsconfig.base.json",
+  "compilerOptions": {
+    "composite": true,
+    "types": ["node", "@litert/decorator", "reflect-metadata"],
+    "rootDir": "src",
+    "outDir": "lib",
+  },
+  "references": [
+    { "path": "../../library" }
+  ]
+}
