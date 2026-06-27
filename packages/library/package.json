@@ -1,0 +1,66 @@
+{
+  "name": "@litert/decorator",
+  "version": "-",
+  "main": "lib/modern/index.js",
+  "types": "lib/modern/index.d.ts",
+  "typings": "lib/modern/index.d.ts",
+  "description": "The utility set of decorators.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/litert/decorator.js.git"
+  },
+  "bugs": {
+    "url": "https://github.com/litert/decorator.js/issues"
+  },
+  "homepage": "https://github.com/litert/decorator.js#readme",
+  "keywords": [
+    "litert",
+    "decorator"
+  ],
+  "scripts": {
+    "ottoia:clean": "rm -rf lib tsconfig.tsbuildinfo",
+    "ottoia:prepublish": "cp ../../LICENSE ../../README.md ./",
+    "ottoia:postpublish": "rm LICENSE README.md",
+    "prepublishOnly": "echo \"Please use ottoia publishing this package!\"; exit 1;"
+  },
+  "license": "Apache-2.0",
+  "private": false,
+  "type": "module",
+  "dependencies": {
+    "@litert/utils-object": "-",
+    "@litert/utils-ts-types": "-"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "ottoia:alias": "lib",
+  "access": "public",
+  "engines": {
+    "node": ">=22.0.0"
+  },
+  "exports": {
+    ".": {
+      "default": "./lib/modern/index.js",
+      "import": "./lib/modern/index.js",
+      "types": "./lib/modern/index.d.ts",
+      "require": "./lib/modern/index.js"
+    },
+    "./modern": {
+      "import": "./lib/modern/index.js",
+      "default": "./lib/modern/index.js",
+      "types": "./lib/modern/index.d.ts",
+      "require": "./lib/modern/index.js"
+    },
+    "./legacy": {
+      "import": "./lib/legacy/index.js",
+      "default": "./lib/legacy/index.js",
+      "types": "./lib/legacy/index.d.ts",
+      "require": "./lib/legacy/index.js"
+    },
+    "./compatible": {
+      "import": "./lib/compatible/index.js",
+      "default": "./lib/compatible/index.js",
+      "types": "./lib/compatible/index.d.ts",
+      "require": "./lib/compatible/index.js"
+    }
+  }
+}

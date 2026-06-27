@@ -6,6 +6,10 @@
 - chore: updated all dependencies to latest version.
 - build: switched to monorepo structure.
 - refactor: migrate to ESM module system.
+- refactor: full new API design.
+- feat: added stage 3 decorators support by `@litert/decorator` or `@litert/decorator/modern`.
+- feat: added stage 2 decorators support by `@litert/decorator/legacy`.
+- feat: added compatible layer for both stage 2 and stage 3 decorators by `@litert/decorator/compatible`.
 
 ## v0.2.2
 

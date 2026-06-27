@@ -1,0 +1,15 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "types": ["node"],
+    "composite": true,
+    "rootDir": "src",
+    "outDir": "lib",
+    // "emitDecoratorMetadata": false,
+    // "experimentalDecorators": false
+  },
+  "include": [
+    "./src/*.ts",
+    "./src/**/*.ts"
+  ]
+}
