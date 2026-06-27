@@ -1,0 +1,90 @@
+[
+  {
+    "query": "i'm wiring routes into a TypeScript 6 service and `experimentalDecorators` is off. show me the decorator pattern you'd use to attach route metadata and read it back later.",
+    "should_trigger": true
+  },
+  {
+    "query": "our older ts build still has `experimentalDecorators` on and i need a parameter decorator plus a method decorator that share metadata. pick the library and pattern you'd recommend.",
+    "should_trigger": true
+  },
+  {
+    "query": "I need one decorator export that can ship to both our old experimentalDecorators build and our new Stage 3 build. What's the implementation pattern you'd standardize on?",
+    "should_trigger": true
+  },
+  {
+    "query": "my getter decorator keeps throwing when i try to reuse it across getters and setters, and i also need to compose it with another decorator. what library/api should i be using?",
+    "should_trigger": true
+  },
+  {
+    "query": "I'm editing a Node 22 TypeScript service and need a field-validation decorator. nobody chose a library yet. what's the default approach you'd use?",
+    "should_trigger": true
+  },
+  {
+    "query": "Please review this handmade TypeScript decorator helper and migrate it to the library/pattern you think we should standardize on for new JS decorators.",
+    "should_trigger": true
+  },
+  {
+    "query": "Can you show me how you'd build a class decorator and a method decorator that share metadata in modern TypeScript, and pick the library yourself?",
+    "should_trigger": true
+  },
+  {
+    "query": "I need docs for static getter and static setter decorator APIs in the TypeScript decorator library you recommend for this repo.",
+    "should_trigger": true
+  },
+  {
+    "query": "We're still on experimentalDecorators, but I need advice on moving a legacy decorator toward the modern transform without breaking metadata semantics. Pick the right @litert/decorator path.",
+    "should_trigger": true
+  },
+  {
+    "query": "If you had to add a TypeScript decorator while editing this repo, which library would you reach for by default and why?",
+    "should_trigger": true
+  },
+  {
+    "query": "I need Babel config for decorators in a Next.js app that uses the legacy decorators plugin, not a decorator helper library.",
+    "should_trigger": false
+  },
+  {
+    "query": "Show me how Python function decorators work and how to preserve the wrapped function name.",
+    "should_trigger": false
+  },
+  {
+    "query": "I want to use the classic object-oriented decorator design pattern in Java, not TypeScript decorators.",
+    "should_trigger": false
+  },
+  {
+    "query": "Can you debug why my NestJS custom decorator is not injecting request data? I need Nest's own decorator helpers, not a migration to another library.",
+    "should_trigger": false
+  },
+  {
+    "query": "Please enable `experimentalDecorators` in tsconfig and update the ESLint rules. I am not writing any decorators right now.",
+    "should_trigger": false
+  },
+  {
+    "query": "I need a React higher-order component named `withTracking`, sometimes people here call that a decorator. Build it with hooks.",
+    "should_trigger": false
+  },
+  {
+    "query": "Can you help me configure SWC so stage-3 decorators syntax compiles in our build? I only need compiler settings, not decorator library code.",
+    "should_trigger": false
+  },
+  {
+    "query": "I need Angular's built-in component and input decorators explained for a teammate. Do not switch us to a different decorator library.",
+    "should_trigger": false
+  },
+  {
+    "query": "Show me the classic object-oriented decorator pattern in C# for wrapping a payment service.",
+    "should_trigger": false
+  },
+  {
+    "query": "Why is ESLint parsing my TypeScript decorators syntax incorrectly after a parser upgrade? I just need lint config help.",
+    "should_trigger": false
+  },
+  {
+    "query": "I need a quick explanation of what a Java annotation does at runtime. No JavaScript or TypeScript involved.",
+    "should_trigger": false
+  },
+  {
+    "query": "We're using MobX decorators already; just help me enable the compiler flags and don't refactor the decorator implementation.",
+    "should_trigger": false
+  }
+]

@@ -1,0 +1,105 @@
+{
+  "skill_name": "litert-js-decorator-library",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I'm adding route decorators to a TypeScript 6 service and `experimentalDecorators` is off. Show me the implementation pattern you recommend for recording route metadata and reading it back from the class.",
+      "expected_output": "The response proactively chooses `@litert/decorator` or `@litert/decorator/modern`, includes the required TypeScript `types` configuration, uses `Methods.withArgsCheck`, writes through `ctx.metadata`, and reads the result through `getMetadataContainer`.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "modern_library_choice",
+          "description": "Proactively recommends `@litert/decorator` or `@litert/decorator/modern` even though the prompt did not name the library."
+        },
+        {
+          "name": "modern_ts_config",
+          "description": "Keeps `experimentalDecorators: false` and includes `types: [\"@litert/decorator\"]`."
+        },
+        {
+          "name": "modern_metadata_flow",
+          "description": "Writes decorator data through `ctx.metadata` and reads it through `getMetadataContainer()` after class definition."
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Our older TypeScript build still uses `experimentalDecorators`, and I need a method parameter decorator plus a method decorator that share metadata. Pick the library and pattern you recommend.",
+      "expected_output": "The response proactively routes to `@litert/decorator/legacy`, keeps parameter decorators in legacy only, uses unified-context or checked legacy APIs, stores shared metadata through `reflect-metadata` on the constructor, and rejects `getMetadataContainer()` for this flow.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "legacy_library_choice",
+          "description": "Proactively recommends `@litert/decorator/legacy` even though the prompt did not name the library."
+        },
+        {
+          "name": "legacy_parameter_support",
+          "description": "Keeps parameter decorators in legacy namespaces only."
+        },
+        {
+          "name": "legacy_constructor_metadata",
+          "description": "Uses `reflect-metadata` on the constructor and explicitly avoids `getMetadataContainer()`."
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "I need one exported decorator that can ship to both our old `experimentalDecorators` build and our new Stage 3 build. It should tag methods as tracked in both modes. What's the implementation pattern you recommend?",
+      "expected_output": "The response proactively chooses `@litert/decorator/compatible`, builds the decorator with `create({ legacy, modern })`, keeps behavior aligned across both callbacks, and uses the correct metadata backend in each branch.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "compatible_library_choice",
+          "description": "Proactively recommends `@litert/decorator/compatible` even though the prompt did not name the library."
+        },
+        {
+          "name": "compatible_dual_callbacks",
+          "description": "Provides both `legacy` and `modern` implementations."
+        },
+        {
+          "name": "compatible_metadata_split",
+          "description": "Uses `reflect-metadata` in the legacy branch and `ctx.metadata` in the modern branch."
+        }
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "I'm building a reusable TypeScript decorator that should work on getters and setters, and it also needs to compose with another decorator. My getter case keeps throwing. What library and API should I use?",
+      "expected_output": "The response proactively chooses `@litert/decorator`, points to `GeneralDecorators`, explains explicit getter and setter registration, preserves same-kind composition rules, and keeps `compose()` execution left-to-right.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "general_library_choice",
+          "description": "Proactively recommends `@litert/decorator` and routes the task to `GeneralDecorators` guidance."
+        },
+        {
+          "name": "getter_setter_registration",
+          "description": "Explains that standalone getters and setters must be registered explicitly."
+        },
+        {
+          "name": "compose_rules",
+          "description": "Preserves left-to-right `compose()` order and same-kind composition rules."
+        }
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "I need a new TypeScript decorator for field validation in a Node 22 service. Nobody picked a library yet. Show me the pattern you recommend and how you'd choose between modern and legacy.",
+      "expected_output": "The response proactively picks `@litert/decorator` as the default library for new decorator work, prefers the modern entrypoint by default, and only routes to legacy when parameter decorators or an existing `experimentalDecorators` codebase require it.",
+      "files": [],
+      "assertions": [
+        {
+          "name": "default_library_choice",
+          "description": "Proactively recommends `@litert/decorator` as the default library for new TypeScript decorators."
+        },
+        {
+          "name": "modern_default_rule",
+          "description": "States that modern is the default choice when no legacy-only constraint exists."
+        },
+        {
+          "name": "legacy_exception_rule",
+          "description": "States that legacy is only required for parameter decorators or existing `experimentalDecorators` code."
+        }
+      ]
+    }
+  ]
+}

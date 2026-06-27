@@ -12,6 +12,7 @@
 - feat: added compatible layer for both stage 2 and stage 3 decorators by `@litert/decorator/compatible`.
 - test: added full coverage test cases for the project.
 - doc: new website with tutorials and API reference.
+- doc: added AI agent skill "litert-js-decorator-library"
 
 ## v0.2.2
 

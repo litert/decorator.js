@@ -99,6 +99,23 @@ export const track = Methods.create({
 | TypeScript | `>=5.0` |
 | ECMAScript target | ES2022 or newer |
 
+## AI Agent Skills
+
+- `litert-js-decorator-library`
+
+    The skill to guide the AI agent to use decorators in ECMAScript/TypeScript with the `@litert/decorator` library.
+
+    Install with
+    
+    ```sh
+    npx skills add https://github.com/litert/decorator.js \
+      --skill "litert-js-decorator-library"
+    ```
+
 ## License
 
 This library is published under [Apache-2.0](./LICENSE) license.
+
+## AI Disclaimer
+
+This project may use AI tools to assist in documentation writing and inspiration for unit test cases, but all code is written and reviewed by human developers.
