@@ -1,25 +1,28 @@
-module.exports = {
+export default {
     'extends': ['@commitlint/config-conventional'],
     'defaultIgnores': false,
     'rules': {
         'type-enum': [2, 'always', [
-            'feat',
             'fix',
-            'build',
+            'feat',
             'test',
-        ]],
-        'scope-enum': [2, 'always', [
-            'api',
-            'examples',
-            'typings',
-            'hook',
-            'deps',
+            'deprecate',
+            'build',
+            'chore',
             'doc',
             'lint',
-            'branch',
-            'project'
+            'refactor',
         ]],
-        'scope-empty': [2, 'never'],
+        'scope-enum': [2, 'always', [
+            'pkg:common',
+            'pkg:client',
+            'pkg:server',
+        ]],
+        'scope-case': [2, 'always', {
+            'cases': ['lower-case'],
+            'delimiters': [':'],
+        }],
+        'scope-empty': [0, 'never'],
         'subject-min-length': [2, 'always', 5],
         'subject-max-length': [2, 'always', 50],
     }
