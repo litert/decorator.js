@@ -14,9 +14,9 @@ export default {
             'refactor',
         ]],
         'scope-enum': [2, 'always', [
-            'pkg:common',
-            'pkg:client',
-            'pkg:server',
+            'modern',
+            'legacy',
+            'compatible',
         ]],
         'scope-case': [2, 'always', {
             'cases': ['lower-case'],
